@@ -253,7 +253,6 @@ class window.SmartListing
     modal_content.find('.smart-form-fields').addClass('modal-body')
     button_row = modal_content.find('.smart-button-row')
     button_row.addClass('modal-footer')
-    button_row.append(' <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> ')
     @modal.modal('toggle')
     @container.trigger("smart_listing:edit", modal_content)
 
