@@ -337,9 +337,16 @@ $.fn.smart_listing.observeField = (field, opts = {}) ->
      , 400)
 
 $.fn.smart_listing.showPopover = (elem, body) ->
-  elem.popover("dispose")
+  $.fn.smart_listing.disposePopover(elem)
+
   elem.popover(content: body, html: true, trigger: "manual", title: '', placement:'left')
   elem.popover("show")
+
+$.fn.smart_listing.disposePopover = (elem) ->
+  try # using Bootstrap 4 syntax
+    elem.popover("dispose")
+  catch error
+    elem.popover("destroy")
 
 $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback) ->
   buildPopover = (confirmation_elem, msg) ->
@@ -351,12 +358,12 @@ $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback)
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
         confirm_callback(confirmation_elem)
         $(confirmation_elem).click()
-        $(confirmation_elem).popover("dispose")
+        $.fn.smart_listing.disposePopover(elem)
       )
       .append(" ")
       .append($("<button/>").html("No").addClass("btn btn-small").click (event) =>
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
-        $(confirmation_elem).popover("dispose")
+        $.fn.smart_listing.disposePopover(elem)
       )
     )
 
