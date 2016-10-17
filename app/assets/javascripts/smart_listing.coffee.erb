@@ -337,8 +337,8 @@ $.fn.smart_listing.observeField = (field, opts = {}) ->
      , 400)
 
 $.fn.smart_listing.showPopover = (elem, body) ->
-  elem.popover("destroy")
-  elem.popover(content: body, html: true, trigger: "manual", title: null, placement:'left')
+  elem.popover("dispose")
+  elem.popover(content: body, html: true, trigger: "manual", title: '', placement:'left')
   elem.popover("show")
 
 $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback) ->
@@ -351,12 +351,12 @@ $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback)
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
         confirm_callback(confirmation_elem)
         $(confirmation_elem).click()
-        $(confirmation_elem).popover("destroy")
+        $(confirmation_elem).popover("dispose")
       )
       .append(" ")
       .append($("<button/>").html("No").addClass("btn btn-small").click (event) =>
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
-        $(confirmation_elem).popover("destroy")
+        $(confirmation_elem).popover("dispose")
       )
     )
 
