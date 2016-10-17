@@ -84,6 +84,8 @@ module SmartListing
           :observed => "observed",
           :autoshow => "autoshow",
           :popover => "slpopover",
+          :yes => "yes",
+          :no => "no"
         },
         :selectors => {
           :item_action_destroy => "a.destroy",

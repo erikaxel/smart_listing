@@ -336,9 +336,16 @@ $.fn.smart_listing.observeField = (field, opts = {}) ->
        keyChange()
      , 400)
 
+$.fn.smart_listing.disposePopover = (elem) ->
+  try # using Bootstrap 4 method
+    elem.popover("dispose")
+  catch error
+    elem.popover("destroy")
+
 $.fn.smart_listing.showPopover = (elem, body) ->
-  elem.popover("destroy")
-  elem.popover(content: body, html: true, trigger: "manual", title: null, placement:'left')
+  $.fn.smart_listing.disposePopover(elem)
+
+  elem.popover(content: body, html: true, trigger: "manual", title: '', placement:'left')
   elem.popover("show")
 
 $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback) ->
@@ -346,17 +353,17 @@ $.fn.smart_listing.showConfirmation = (confirmation_elem, msg, confirm_callback)
     deletion_popover = $("<div/>").addClass("confirmation_box")
     deletion_popover.append($("<p/>").html(msg))
     deletion_popover.append($("<p/>")
-      .append($("<button/>").html("Yes").addClass("btn btn-danger ").click (event) =>
+      .append($("<button/>").html(confirmation_elem.data(SmartListing.config.data_attribute("yes"))).addClass("btn btn-danger ").click (event) =>
         # set @confirmed element and emulate click on icon
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
         confirm_callback(confirmation_elem)
         $(confirmation_elem).click()
-        $(confirmation_elem).popover("destroy")
+        $.fn.smart_listing.disposePopover($(confirmation_elem))
       )
       .append(" ")
-      .append($("<button/>").html("No").addClass("btn btn-small").click (event) =>
+      .append($("<button/>").html(confirmation_elem.data(SmartListing.config.data_attribute("no"))).addClass("btn btn-small").click (event) =>
         editable = $(event.currentTarget).closest(SmartListing.config.class_name("editable"))
-        $(confirmation_elem).popover("destroy")
+        $.fn.smart_listing.disposePopover($(confirmation_elem))
       )
     )
 
