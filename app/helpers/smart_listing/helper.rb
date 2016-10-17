@@ -276,6 +276,7 @@ module SmartListing
             locals[:icon] ||= smart_listing_config.classes(:icon_trash)
             locals.merge!(
               :confirmation => action.delete(:confirmation),
+              :alternatives => action.delete(:alternatives)
             )
             template = 'action_delete'
           when :custom

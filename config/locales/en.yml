@@ -4,6 +4,8 @@ en:
       destroy_confirmation: Destroy?
       no_items: No items
     actions:
+      'yes': Yes
+      'no': No
       destroy: Destroy
       edit: Edit
       show: Show
